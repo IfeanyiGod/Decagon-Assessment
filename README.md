@@ -45,3 +45,75 @@ The proposed architecture for the FinTech company's web-based service would be a
 
 In conclusion, Terraform can be used to manage the infrastructure of this FinTech company's web-based service with ease and maintainability, meeting the requirements for security, simplicity, cost, and documentation. This architecture is simple, secure, maintainable, and cost-effective. The cost would depend on the number of instances, storage, and data transfer required.
 
+
+# Architecture Diagram
+
+Here is a high-level architecture diagram that shows how the different components of the system interact with each other:
+
+              +----------------------+
+              |                      |
+              |      Load Balancer   |
+              |                      |
+              +-----------+----------+
+                          |
+                          |
+                          |
+                          |
+                          |
+               +----------v----------+
+               |                     |
+               |     Application     |
+               |                     |
+               +----------+----------+
+                          |
+                          |
+               +----------v----------+
+               |                     |
+               |        Database     |
+               |                     |
+               +----------+----------+
+                          |
+                          |
+               +----------v----------+
+               |                     |
+               |      S3 Bucket      |
+               |                     |
+               +---------------------+
+
+
+# Deployment Diagram
+
+Here is a deployment diagram that shows how the different components of the system are deployed across multiple instances:
+
+        +-------------+    +-------------+    +-------------+
+        |   Instance 1|    |   Instance 2|    |   Instance 3|
+        +-------------+    +-------------+    +-------------+
+                |                   |                  |
+                |                   |                  |
+                |                   |                  |
+         +------v----------+ +------v----------+ +------v----------+
+         |                 | |                 | |                 |
+         | Load Balancer   | | Load Balancer   | | Load Balancer   |
+         |                 | |                 | |                 |
+         +-------+---------+ +-------+---------+ +-------+---------+
+                 |                   |                  |
+                 |                   |                  |
+         +-------v---------+ +-------v---------+ +-------v---------+
+         |                |  |                |  |                |
+         | Application 1  |  | Application 2  |  | Application 3  |
+         |                |  |                |  |                |
+         +-------+--------+  +-------+--------+  +-------+--------+
+                 |                   |                  |
+                 |                   |                  |
+         +-------v---------+ +-------v---------+ +-------v---------+
+         |                |  |                |  |                |
+         |   Database 1   |  |   Database 2   |  |   Database 3   |
+         |                |  |                |  |                |
+         +-------+--------+  +-------+--------+  +-------+--------+
+                 |                   |                  |
+                 |                   |                  |
+         +-------v---------+ +-------v---------+ +-------v---------+
+         |                |  |                |  |                |
+         |    S3 Bucket   |  |    S3 Bucket   |  |    S3 Bucket   |
+         |                |  |                |  |                |
+         +----------------+  +----------------+  +----------------+
