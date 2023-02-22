@@ -1,3 +1,8 @@
+/* Elastic Load Balancer (ELB) associated with a security group.
+   The ELB has one listener that forwards traffic from port 80 on 
+   the ELB to port 80 on the backend instances, using HTTP for both the ELB and the instances 
+*/
+
 resource "aws_elb" "web-lb" {
   name               = "web-lb"
   security_groups    = [aws_security_group.web-lb.id]
@@ -10,6 +15,14 @@ resource "aws_elb" "web-lb" {
   instances = [aws_instance.web-app.*.id]
 }
 
+
+ /* Defining an AWS EC2 instance resource.
+    The number of instances created is determined by the count parameter, 
+    which is set to the value of the web_app_instance_count variable. 
+    The count parameter makes it possible to create multiple instances of 
+    the same type without duplicating the entire block. 
+ */
+      
 resource "aws_instance" "web-app" {
   count = var.web_app_instance_count
 
@@ -17,15 +30,26 @@ resource "aws_instance" "web-app" {
   instance_type = var.web_app_instance_type
 }
 
+/* Creating S3 bucket */
+     
 resource "aws_s3_bucket" "dynamic-data" {
 bucket = "dynamic-data"
 }
 
-resource "aws_rds_instance" "postgres" {
+# Creating  PostgreSQL database Instance
+     
+resource "aws_db_instance" "postgres" {
 identifier = "postgres"
 
 }
 
+/* Creating The security Group.
+   The ingress block within the resource definition specifies the inbound 
+   traffic rules for the security group. 
+   In this case, it allows incoming traffic on port 80, 
+   which is typically used for HTTP traffic, and restricts it to the cidr_blocks provided.
+*/
+ 
 resource "aws_security_group" "web-lb" {
 name = "web-lb"
 description = "Security group for the web load balancer"
